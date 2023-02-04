@@ -14,6 +14,10 @@ A Fabric mod that adds customizable timestamps to chat!
 
 This is a client-side mod made for [Fabric modloader][fabric] that allows users to add a customizable timestamp to their chat messages.
 
+Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?
+With this mod, you'll never have to guess again!
+The Timestamp mod adds timestamps to all chat messages, so you can easily see exactly when each message was sent.
+
 The formatting along with the style of the timestamp can be customized.
 
 Here are some screenshots!
