@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "plagueschattimestamps",
+  "version": "${version}",
+
+  "name": "Plague's Chat Timestamps",
+  "description": "This mod adds customizable timestamps to chat!",
+  "authors": [
+    "Plague1337"
+  ],
+  "contact": {
+    "sources": "https://github.com/PlagueTR/ChatTimestamps"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/plagueschattimestamps/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "space.plague.chattimestamps.Main"
+    ],
+    "modmenu": [
+      "space.plague.chattimestamps.config.gui.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "plagueschattimestamps.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.13",
+    "minecraft": "~1.19.3",
+    "java": ">=17"
+  },
+  "suggests": {
+    "modmenu": ">=5.0.2"
+  }
+}
