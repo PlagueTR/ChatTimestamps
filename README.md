@@ -5,7 +5,7 @@
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
 [![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-blue)][fabric] <!-- modrinth_exclude.start -->
-![Version](https://img.shields.io/badge/version-1.0.0%2B1.19.3-blue)
+![Version](https://img.shields.io/badge/version-1.0.0%2B1.19-blue)
 <!-- modrinth_exclude.end -->
 
 A Fabric mod that adds customizable timestamps to chat!
