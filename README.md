@@ -1,12 +1,10 @@
 # Plague's Chat Timestamps
 
-<!-- modrinth_exclude.start -->
-![Language: Java 17](https://img.shields.io/badge/Language-Java%2017-purple) <!-- modrinth_exclude.end -->
+![Language: Java 17](https://img.shields.io/badge/Language-Java%2017-purple)
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
-[![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-blue)][fabric] <!-- modrinth_exclude.start -->
+[![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-blue)][fabric]
 ![Version](https://img.shields.io/badge/version-1.0.0%2B1.19-blue)
-<!-- modrinth_exclude.end -->
 
 A Fabric mod that adds customizable timestamps to chat!
 
@@ -62,7 +60,6 @@ You can also edit the configuration file found in config folder manually if you 
 ## 📖 Compatibility
 
 This mod should be compatible with every mod.
-
 
 [fabric]: https://fabricmc.net
 [ModMenu]: https://modrinth.com/mod/modmenu "ModMenu Modrinth page"
