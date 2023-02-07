@@ -34,6 +34,6 @@
     "java": ">=8"
   },
   "suggests": {
-    "modmenu": ">=1.12.2"
+    "modmenu": ">=1.14.6+build.31"
   }
 }
