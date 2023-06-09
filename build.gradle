@@ -1,12 +1,8 @@
 plugins {
-	id 'fabric-loom' version '1.0.17'
-	id 'com.github.johnrengelman.shadow' version '7.1.2'
+	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id 'java-library'
 	id 'java'
 }
-
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = "${project.mod_version}+${project.mc_version}"
@@ -16,11 +12,6 @@ repositories {
 	mavenCentral()
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/" }
-}
-
-configurations {
-	shadow
-	implementation.extendsFrom shadow
 }
 
 dependencies {
@@ -47,7 +38,6 @@ dependencies {
 	modImplementation (fabricApi.module("fabric-key-binding-api-v1", project.fabric_version))
 	modImplementation (fabricApi.module("fabric-lifecycle-events-v1", project.fabric_version))
 
-	shadow "com.electronwill.night-config:json:${project.nightconfig_version}"
 }
 
 java {
@@ -57,6 +47,9 @@ java {
 tasks.withType(JavaCompile).configureEach {
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release.set(17)
+
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 processResources {
@@ -72,13 +65,3 @@ jar {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
 }
-
-shadowJar {
-	dependsOn jar
-	configurations = [project.configurations.shadow]
-	destinationDirectory.set(file("${project.buildDir}/devlibs"))
-	archiveClassifier.set('dev')
-
-	relocate 'com.electronwill.nightconfig', 'space.plague.chattimestamps.shadow.nightconfig'
-}
-prepareRemapJar.dependsOn(shadowJar)

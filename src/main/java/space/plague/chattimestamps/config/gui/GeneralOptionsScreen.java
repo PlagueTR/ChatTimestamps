@@ -1,8 +1,7 @@
 package space.plague.chattimestamps.config.gui;
 
-import space.plague.chattimestamps.config.GeneralOptions;
-import space.plague.chattimestamps.config.GeneralOptionsDefault;
-import space.plague.chattimestamps.config.ModConfigFile;
+import space.plague.chattimestamps.Main;
+import space.plague.chattimestamps.config.ModConfig;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
@@ -14,27 +13,29 @@ import net.minecraft.text.Text;
 public class GeneralOptionsScreen {
 
     public static ConfigBuilder getConfigBuilder() {
+
+        ModConfig defaults = new ModConfig();
         
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(MinecraftClient.getInstance().currentScreen)
                 .setTitle(Text.of("Plague's Chat Timestamps - General"));
 
-        builder.setSavingRunnable(ModConfigFile.saveRunnable);
+        builder.setSavingRunnable(Main::saveConfig);
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         ConfigCategory general = builder.getOrCreateCategory(Text.of("General"));
 
-        general.addEntry(entryBuilder.startBooleanToggle(Text.of("Disable Mod"), GeneralOptions.disableMod)
-                .setDefaultValue(GeneralOptionsDefault.disableMod)
-                .setTooltip(Text.of("Disables the mod. This will stop adding timestamps to chat."))
-                .setSaveConsumer(newValue -> GeneralOptions.disableMod = newValue)
+        general.addEntry(entryBuilder.startBooleanToggle(Text.of("Enable Mod"), Main.getConfig().isEnableMod())
+                .setDefaultValue(defaults.isEnableMod())
+                .setTooltip(Text.of("Enables the mod."))
+                .setSaveConsumer(newValue -> Main.getConfig().setEnableMod(newValue))
                 .build());
 
-        general.addEntry(entryBuilder.startStrField(Text.of("Timestamp Format"), GeneralOptions.timestampFormat)
-                .setDefaultValue(GeneralOptionsDefault.timestampFormat)
+        general.addEntry(entryBuilder.startStrField(Text.of("Timestamp Format"), Main.getConfig().getTimestampFormat())
+                .setDefaultValue(defaults.getTimestampFormat())
                 .setTooltip(Text.of("Set the formatting for the timestamp."))
-                .setSaveConsumer(newValue -> GeneralOptions.timestampFormat = newValue)
+                .setSaveConsumer(newValue -> Main.getConfig().setTimestampFormat(newValue))
                 .build());
 
         String mc_formatting_info = """
@@ -58,6 +59,7 @@ public class GeneralOptionsScreen {
                             ss §8Second of the minute§7                  SS §8Millisecond of the second§7
                             zzz §8Shortened name of the general time zone§7
                             zzzz §8Full name of the general time zone§7
+                            'text' §8Any text not part of the formatting§7
                 """;
         general.addEntry(entryBuilder.startTextDescription(
                 Text.of("§7Timestamp Formatting Help\n" + mc_formatting_info + ts_formatting_info))

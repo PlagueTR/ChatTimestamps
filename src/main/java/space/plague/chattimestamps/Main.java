@@ -1,8 +1,7 @@
 package space.plague.chattimestamps;
 
-import space.plague.chattimestamps.config.GeneralOptions;
-import space.plague.chattimestamps.config.GeneralOptionsDefault;
-import space.plague.chattimestamps.config.ModConfigFile;
+import space.plague.chattimestamps.config.ModConfig;
+import space.plague.chattimestamps.config.ModConfigManager;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -39,12 +38,20 @@ public class Main implements ModInitializer {
         LOGGER.info("[Plague's Chat Timestamps] Loading... ");
 
         //Load Config
-        ModConfigFile.load();
-        SetFormat(GeneralOptions.timestampFormat);
+        ModConfigManager.initializeConfig();
+        SetFormat(ModConfigManager.getConfig().getTimestampFormat());
 
         //Log initialization success
         LOGGER.info("[Plague's Chat Timestamps] All done!");
 
+    }
+
+    public static ModConfig getConfig() {
+        return ModConfigManager.getConfig();
+    }
+
+    public static void saveConfig() {
+        ModConfigManager.save();
     }
 
     public static void SetFormat(String timestampFormat){
@@ -73,11 +80,11 @@ public class Main implements ModInitializer {
             sdf.format(System.currentTimeMillis());
         }catch(NullPointerException ex){
             LOGGER.warn("[Plague's Chat Timestamps] Format is null, using default format.");
-            SetFormat(GeneralOptionsDefault.timestampFormat);
+            SetFormat(new ModConfig().getTimestampFormat());
         }
         catch(IllegalArgumentException ex){
             LOGGER.warn("[Plague's Chat Timestamps] Format is not parseable, using default format.");
-            SetFormat(GeneralOptionsDefault.timestampFormat);
+            SetFormat(new ModConfig().getTimestampFormat());
         }
 
     }

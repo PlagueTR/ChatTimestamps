@@ -1,12 +1,10 @@
 package space.plague.chattimestamps.mixin;
 
 import space.plague.chattimestamps.Main;
-import space.plague.chattimestamps.config.GeneralOptions;
 
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.util.TextCollector;
 import net.minecraft.text.StringVisitable;
-import net.minecraft.text.Text;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +18,7 @@ public abstract class MixinChatHud {
     private StringVisitable modifyMessage(StringVisitable message) {
 
         //if mod is disabled, don't change anything
-        if (!GeneralOptions.disableMod) {
+        if (Main.getConfig().isEnableMod()) {
 
             TextCollector tc = new TextCollector();
 
