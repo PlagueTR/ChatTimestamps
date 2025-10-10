@@ -28,6 +28,7 @@ public class Main implements ModInitializer {
 
     //each occurrence of Minecraft text formatting
     public static String []formats;
+    public static String hoverText;
     //timestamp formatting
     public static SimpleDateFormat sdf;
 
@@ -40,6 +41,7 @@ public class Main implements ModInitializer {
         //Load Config
         ModConfigManager.initializeConfig();
         SetFormat(ModConfigManager.getConfig().getTimestampFormat());
+        setHoverText(ModConfigManager.getConfig().getHoverText());
 
         //Log initialization success
         LOGGER.info("[Plague's Chat Timestamps] All done!");
@@ -86,7 +88,14 @@ public class Main implements ModInitializer {
             LOGGER.warn("[Plague's Chat Timestamps] Format is not parseable, using default format.");
             SetFormat(new ModConfig().getTimestampFormat());
         }
+    }
 
+    public static void setHoverText(String newHoverText) {
+        hoverText = newHoverText;
+    }
+
+    public static String getHoverText() {
+        return hoverText;
     }
 
     public static String getFormattedTimestamp(){

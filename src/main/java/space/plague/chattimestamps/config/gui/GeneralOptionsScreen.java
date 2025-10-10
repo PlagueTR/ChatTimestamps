@@ -38,6 +38,12 @@ public class GeneralOptionsScreen {
                 .setSaveConsumer(newValue -> Main.getConfig().setTimestampFormat(newValue))
                 .build());
 
+        general.addEntry(entryBuilder.startStrField(Text.of("Hover Text"), Main.getConfig().getHoverText())
+                .setDefaultValue(defaults.getHoverText())
+                .setTooltip(Text.of("Set the text to hover for the timestamp. (Leave empty to disable.)"))
+                .setSaveConsumer(newValue -> Main.getConfig().setHoverText(newValue))
+                .build());
+
         String mc_formatting_info = """
                             &0 §0BLACK.§7            &1 §1DARK_BLUE.§7      &2 §2DARK_GREEN§7     &3 §3DARK_AQUA§7
                             &4 §4DARK_RED§7        &5 §5DARK_PURPLE.§7   &6 §6GOLD§7              &7 §7GRAY§7

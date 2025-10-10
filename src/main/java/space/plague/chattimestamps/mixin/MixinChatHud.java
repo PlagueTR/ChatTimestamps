@@ -1,14 +1,17 @@
 package space.plague.chattimestamps.mixin;
 
-import space.plague.chattimestamps.Main;
-
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.util.TextCollector;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.StringVisitable;
-
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import space.plague.chattimestamps.Main;
+
+import java.util.Objects;
 
 @Mixin(ChatHud.class)
 public abstract class MixinChatHud {
@@ -22,15 +25,27 @@ public abstract class MixinChatHud {
 
             TextCollector tc = new TextCollector();
 
-            //get formatted timestamp and add 'reset formatting modifier' to the end of timestamp
-            tc.add(StringVisitable.plain(Main.getFormattedTimestamp() + "§r"));
+            String formattedTimestamp = Main.getFormattedTimestamp();
+            String hoverTextValue = Main.getHoverText().replace('&', '§');
+
+            if (!hoverTextValue.isBlank()) {
+                Text hoverText = Text.literal(hoverTextValue)
+                        .setStyle(Style.EMPTY.withHoverEvent(
+                                new HoverEvent.ShowText(Text.literal(formattedTimestamp.trim()))
+                        ));
+
+                tc.add(hoverText);
+            } else {
+                //get formatted timestamp and add 'reset formatting modifier' to the end of timestamp
+                tc.add(StringVisitable.plain(formattedTimestamp + "§r"));
+            }
+
 
             //add the rest of the message to the timestamp
             tc.add(message);
 
             //set argument to stamped text
             message = tc.getCombined();
-
         }
         return message;
 
