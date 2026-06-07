@@ -12,8 +12,8 @@ group = project.maven_group
 
 repositories {
 	mavenCentral()
-	maven { url "https://maven.shedaniel.me/" }
-	maven { url "https://maven.terraformersmc.com/" }
+	maven { url = "https://maven.shedaniel.me/" }
+	maven { url = "https://maven.terraformersmc.com/" }
 }
 
 dependencies {
@@ -62,8 +62,10 @@ processResources {
 	}
 }
 
+def archivesName = base.archivesName.get()
+
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_${archivesName}"}
 	}
 }
