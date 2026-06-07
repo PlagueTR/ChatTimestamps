@@ -7,8 +7,8 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
 
 public class GeneralOptionsScreen {
 
@@ -17,24 +17,24 @@ public class GeneralOptionsScreen {
         ModConfig defaults = new ModConfig();
         
         ConfigBuilder builder = ConfigBuilder.create()
-                .setParentScreen(Minecraft.getInstance().screen)
-                .setTitle(Component.literal("Plague's Chat Timestamps - General"));
+                .setParentScreen(MinecraftClient.getInstance().currentScreen)
+                .setTitle(Text.of("Plague's Chat Timestamps - General"));
 
         builder.setSavingRunnable(Main::saveConfig);
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-        ConfigCategory general = builder.getOrCreateCategory(Component.literal("General"));
+        ConfigCategory general = builder.getOrCreateCategory(Text.of("General"));
 
-        general.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Mod"), Main.getConfig().isEnableMod())
+        general.addEntry(entryBuilder.startBooleanToggle(Text.of("Enable Mod"), Main.getConfig().isEnableMod())
                 .setDefaultValue(defaults.isEnableMod())
-                .setTooltip(Component.literal("Enables the mod."))
+                .setTooltip(Text.of("Enables the mod."))
                 .setSaveConsumer(newValue -> Main.getConfig().setEnableMod(newValue))
                 .build());
 
-        general.addEntry(entryBuilder.startStrField(Component.literal("Timestamp Format"), Main.getConfig().getTimestampFormat())
+        general.addEntry(entryBuilder.startStrField(Text.of("Timestamp Format"), Main.getConfig().getTimestampFormat())
                 .setDefaultValue(defaults.getTimestampFormat())
-                .setTooltip(Component.literal("Set the formatting for the timestamp."))
+                .setTooltip(Text.of("Set the formatting for the timestamp."))
                 .setSaveConsumer(newValue -> Main.getConfig().setTimestampFormat(newValue))
                 .build());
 
@@ -62,7 +62,7 @@ public class GeneralOptionsScreen {
                             'text' §8Any text not part of the formatting§7
                 """;
         general.addEntry(entryBuilder.startTextDescription(
-                Component.literal("§7Timestamp Formatting Help\n" + mc_formatting_info + ts_formatting_info))
+                Text.of("§7Timestamp Formatting Help\n" + mc_formatting_info + ts_formatting_info))
                 .build());
 
         builder.transparentBackground();
