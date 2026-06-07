@@ -1,10 +1,10 @@
 # Plague's Chat Timestamps
 
-![Language: Java 21](https://img.shields.io/badge/Language-Java%2021-purple)
+![Language: Java 25](https://img.shields.io/badge/Language-Java%2025-purple)
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
 [![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-blue)][fabric]
-![Version](https://img.shields.io/badge/version-1.0.3%2B1.21.11-blue)
+![Version](https://img.shields.io/badge/version-1.0.5%2B26.1-blue)
 
 A Fabric mod that adds customizable timestamps to chat!
 
