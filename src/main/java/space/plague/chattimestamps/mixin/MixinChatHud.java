@@ -27,8 +27,6 @@ public abstract class MixinChatHud {
                     message.signature(),
                     message.indicator()
             );
-            Main.LOGGER.info(Main.getFormattedTimestamp() + "§r" + message.content());
-            Main.LOGGER.info(of(Main.getFormattedTimestamp() + "§r" + message.content()));
 
         }
 
