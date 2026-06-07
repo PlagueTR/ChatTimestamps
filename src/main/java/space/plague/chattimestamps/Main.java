@@ -28,6 +28,7 @@ public class Main implements ModInitializer {
 
     //each occurrence of Minecraft text formatting
     public static String []formats;
+
     //timestamp formatting
     public static SimpleDateFormat sdf;
 

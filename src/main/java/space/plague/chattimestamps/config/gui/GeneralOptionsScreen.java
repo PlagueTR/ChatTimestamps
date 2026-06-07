@@ -38,6 +38,12 @@ public class GeneralOptionsScreen {
                 .setSaveConsumer(newValue -> Main.getConfig().setTimestampFormat(newValue))
                 .build());
 
+        general.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Hover"), Main.getConfig().isEnableHover())
+                .setDefaultValue(defaults.isEnableHover())
+                .setTooltip(Component.literal("Display time when hoevered instead of prefixing the message."))
+                .setSaveConsumer(newValue -> Main.getConfig().setEnableHover(newValue))
+                .build());
+
         String mc_formatting_info = """
                             &0 §0BLACK.§7            &1 §1DARK_BLUE.§7      &2 §2DARK_GREEN§7     &3 §3DARK_AQUA§7
                             &4 §4DARK_RED§7        &5 §5DARK_PURPLE.§7   &6 §6GOLD§7              &7 §7GRAY§7

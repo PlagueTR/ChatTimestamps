@@ -8,9 +8,12 @@ public class ModConfig {
 
     private String timestampFormat;
 
+    private boolean enableHover;
+
     public ModConfig() {
         this.enableMod = true;
         this.timestampFormat = "&7[HH:mm:ss] ";
+        this.enableHover = false;
     }
 
     public boolean isEnableMod() {
@@ -29,5 +32,9 @@ public class ModConfig {
         this.timestampFormat = timestampFormat;
         Main.SetFormat(timestampFormat);
     }
+
+    public boolean isEnableHover() { return this.enableHover; }
+
+    public void setEnableHover(boolean enableHover) { this.enableHover = enableHover; }
 
 }

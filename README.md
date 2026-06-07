@@ -4,7 +4,7 @@
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
 [![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-blue)][fabric]
-![Version](https://img.shields.io/badge/version-1.0.5%2B26.1-blue)
+![Version](https://img.shields.io/badge/version-1.1.0%2B26.1-blue)
 
 A Fabric mod that adds customizable timestamps to chat!
 
@@ -29,6 +29,10 @@ Here are some screenshots!
 
 ![modified timestamp](images/timestamp-modified.png)
 
+![hover settings](images/settings-hover.png)
+
+![hover timestamp](images/timestamp-hover.png)
+
 ## ✅ Features
 
 - Automatic detection of timezone
@@ -47,6 +51,7 @@ Here are some screenshots!
 - Style customization
   - Color customization
   - Bold, italic and underlined text
+  - Option to show the timestamp when hovered instead of as a prefix
   
 ## 📖 Usage
 
