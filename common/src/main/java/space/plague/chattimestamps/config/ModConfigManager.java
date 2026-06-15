@@ -1,12 +1,11 @@
 package space.plague.chattimestamps.config;
 
-import space.plague.chattimestamps.Main;
-
-import net.fabricmc.loader.api.FabricLoader;
-
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.FieldNamingPolicy;
+
+import space.plague.chattimestamps.Main;
+import space.plague.chattimestamps.PlatformDependent;
 
 import java.io.*;
 
@@ -14,16 +13,19 @@ public class ModConfigManager {
 
     private static File configFile;
     private static ModConfig config;
-    private static Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();;
+    private static final Gson gson = new GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .setPrettyPrinting()
+            .create();
 
     private static void prepareConfigFile() {
-        if (ModConfigManager.configFile == null){
-            ModConfigManager.configFile = new File(FabricLoader.getInstance().getConfigDir().toString(), "plagueschattimestamps.json");
+        if (ModConfigManager.configFile == null) {
+            ModConfigManager.configFile = new File(PlatformDependent.getConfigDirectory().toString(), "plagueschattimestamps.json");
         }
     }
 
     public static ModConfig initializeConfig() {
-        if (ModConfigManager.config != null){
+        if (ModConfigManager.config != null) {
             return ModConfigManager.config;
         }
         ModConfigManager.config = new ModConfig();
@@ -33,9 +35,9 @@ public class ModConfigManager {
 
     public static void save() {
         prepareConfigFile();
-        final String jsonString = gson.toJson(config);
+        final String jsonString = gson.toJson(ModConfigManager.config);
         try {
-            final FileWriter fileWriter =  new FileWriter(ModConfigManager.configFile);
+            final FileWriter fileWriter = new FileWriter(ModConfigManager.configFile);
             try {
                 fileWriter.write(jsonString);
                 fileWriter.close();
@@ -51,7 +53,7 @@ public class ModConfigManager {
             }
         }
         catch (IOException e) {
-            Main.LOGGER.warn("[Plague's Chat Timestamps] Couldn't save config file!", e);
+            Main.LOGGER.warn("[" + Main.MOD_NAME + "] Couldn't save config file!", e);
         }
     }
 
@@ -61,7 +63,7 @@ public class ModConfigManager {
             if (!ModConfigManager.configFile.exists()) {
                 save();
             }
-            else {
+            else{
                 final BufferedReader br = new BufferedReader(new FileReader(ModConfigManager.configFile));
                 final ModConfig parsed = gson.fromJson(br, ModConfig.class);
                 if (parsed != null) {
@@ -70,7 +72,7 @@ public class ModConfigManager {
             }
         }
         catch (FileNotFoundException e) {
-            Main.LOGGER.warn("[Plague's Chat Timestamps] Couldn't load config file!", e);
+            Main.LOGGER.warn("[" + Main.MOD_NAME + "] Couldn't load config file!", e);
         }
     }
 

@@ -1,0 +1,71 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+loom {
+    forge {
+        mixinConfig "plagueschattimestamps.mixins.json"
+    }
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:$rootProject.forge_version"
+
+    //modImplementation "me.shedaniel:architectury-forge:$rootProject.architectury_api_version"
+
+    modImplementation("me.shedaniel.cloth:cloth-config-forge:${rootProject.common_cloth_config_version}")
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+}
+
+processResources {
+    inputs.property 'forge_loader_version', rootProject.forge_loader_version
+    inputs.property 'mod_license', rootProject.mod_license
+    inputs.property 'mod_version', rootProject.mod_version
+    inputs.property 'mod_name', rootProject.mod_name
+    inputs.property 'mod_author', rootProject.mod_author
+    inputs.property 'mod_desc', rootProject.mod_description
+    inputs.property 'minecraft_version', rootProject.minecraft_version
+
+    filesMatching('META-INF/mods.toml') {
+        expand([
+            'forge_loader_version': inputs.properties.forge_loader_version,
+            'mod_license': inputs.properties.mod_license,
+            'mod_version': inputs.properties.mod_version,
+            'mod_name': inputs.properties.mod_name,
+            'mod_author': inputs.properties.mod_author,
+            'mod_desc': inputs.properties.mod_desc,
+            'minecraft_version': inputs.properties.minecraft_version,
+        ])
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}

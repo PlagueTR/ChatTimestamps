@@ -1,12 +1,12 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "space.plague.chattimestamps.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-  ],
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
   "client": [
-    "MixinChatComponent"
+    "MixinChatHud"
+  ],
+  "mixins": [
   ],
   "injectors": {
     "defaultRequire": 1

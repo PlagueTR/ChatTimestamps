@@ -1,0 +1,84 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+repositories {
+    maven { url = "https://maven.terraformersmc.com" }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    //modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+
+    //modImplementation "me.shedaniel:architectury-fabric:$rootProject.architectury_api_version"
+
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.common_cloth_config_version}")
+
+    modImplementation("com.terraformersmc:modmenu:${rootProject.fabric_mod_menu_version}") {
+        exclude module: "fabric-api"
+        transitive = false
+    }
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+}
+
+processResources {
+    inputs.property 'mod_id', rootProject.archives_name
+    inputs.property 'mod_version', rootProject.mod_version
+    inputs.property 'mod_name', rootProject.mod_name
+    inputs.property 'mod_desc', rootProject.mod_description
+    inputs.property 'mod_author', rootProject.mod_author
+    inputs.property 'mod_sources', rootProject.mod_sources
+    inputs.property 'mod_license', rootProject.mod_license
+    inputs.property 'fabric_loader_version', rootProject.fabric_loader_version
+    inputs.property 'minecraft_version', rootProject.minecraft_version
+    inputs.property 'java_version', rootProject.mod_java
+    inputs.property 'mod_menu_version', rootProject.fabric_mod_menu_version
+
+    filesMatching('fabric.mod.json') {
+        expand([
+            'mod_id': inputs.properties.mod_id,
+            'mod_version': inputs.properties.mod_version,
+            'mod_name': inputs.properties.mod_name,
+            'mod_desc': inputs.properties.mod_desc,
+            'mod_author': inputs.properties.mod_author,
+            'mod_sources': inputs.properties.mod_sources,
+            'mod_license': inputs.properties.mod_license,
+            'fabric_loader_version': inputs.properties.fabric_loader_version,
+            'minecraft_version': inputs.properties.minecraft_version,
+            'java_version': inputs.properties.java_version,
+            'mod_menu_version': inputs.properties.mod_menu_version
+        ])
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}

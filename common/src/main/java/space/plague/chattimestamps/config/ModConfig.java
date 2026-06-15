@@ -33,8 +33,11 @@ public class ModConfig {
         Main.SetFormat(timestampFormat);
     }
 
-    public boolean isEnableHover() { return this.enableHover; }
+    public boolean isEnableHover() {
+        return enableHover;
+    }
 
-    public void setEnableHover(boolean enableHover) { this.enableHover = enableHover; }
-
+    public void setEnableHover(boolean enableHover) {
+        this.enableHover = enableHover;
+    }
 }

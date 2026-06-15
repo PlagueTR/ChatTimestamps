@@ -1,65 +1,58 @@
 plugins {
-	id 'net.fabricmc.fabric-loom' version "${loom_version}"
-	id 'java-library'
-	id 'java'
+	id 'dev.architectury.loom' version "${architectury_loom_version}" apply false
+	id 'architectury-plugin' version "${architectury_plugin_version}"
+	id 'com.gradleup.shadow' version "${shadow_version}" apply false
 }
 
-base{
-    archivesName = project.archives_base_name
-}
-version = "${project.mod_version}+${project.mc_version}"
-group = project.maven_group
-
-repositories {
-	mavenCentral()
-	maven { url = "https://maven.shedaniel.me/" }
-	maven { url = "https://maven.terraformersmc.com/" }
+architectury {
+	minecraft = project.minecraft_version
 }
 
-dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+allprojects {
+	group = rootProject.maven_group
+	version = rootProject.mod_version
+}
 
-	// Fabric API
-	//implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+subprojects {
+	apply plugin: 'dev.architectury.loom'
+	apply plugin: 'architectury-plugin'
+	apply plugin: 'java'
 
-	// Deprecated Fabric API modules
-	//modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
-
-	implementation ("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
-		exclude module: "fabric-api"
+	base {
+		archivesName = "$rootProject.archives_name-$rootProject.minecraft_version-$project.name"
 	}
 
-	implementation ("com.terraformersmc:modmenu:${project.modmenu_version}") {
-		exclude module: "fabric-api"
-		transitive = false
+	repositories{
+
 	}
 
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.release = 25
-}
-
-java {
-	withSourcesJar()
-
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+	dependencies{
+		minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+		mappings "net.fabricmc:yarn:$rootProject.yarn_mappings:v2"
 	}
-}
 
-def archivesNameCached = base.archivesName.get()
+	java {
+		withSourcesJar()
 
-jar {
-	from("LICENSE") {
-		rename { "${it}_${archivesNameCached}"}
+		sourceCompatibility = JavaVersion.VERSION_1_8
+		targetCompatibility = JavaVersion.VERSION_1_8
+
+		toolchain.languageVersion=JavaLanguageVersion.of(8)
+	}
+
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 8
+
+		options.compilerArgs.removeIf { it == "--release" }
+		if (options.hasProperty("release")) {
+			options.release.set(null)
+		}
+	}
+
+	tasks.withType(JavaExec).configureEach {
+		def toolchainService = project.extensions.getByType(JavaToolchainService)
+		def launcher = toolchainService.launcherFor{languageVersion = JavaLanguageVersion.of(8)}.get()
+
+		executable = launcher.executablePath.asFile.absolutePath
 	}
 }

@@ -3,14 +3,14 @@
 ![Language: Java 25](https://img.shields.io/badge/Language-Java%2025-purple)
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
-[![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-blue)][fabric]
-![Version](https://img.shields.io/badge/version-1.1.0%2B26.1-blue)
+![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric/Forge/NeoForge-blue)
+![Version](https://img.shields.io/badge/version-1.2.0%2B1.16.5-blue)
 
 A Fabric mod that adds customizable timestamps to chat!
 
 ## 📖 What is this mod?
 
-This is a client-side mod made for [Fabric modloader][fabric] that allows users to add a customizable timestamp to their chat messages.
+This is a client-side mod that allows users to add a customizable timestamp to their chat messages.
 
 Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?
 With this mod, you'll never have to guess again!
@@ -59,13 +59,18 @@ Using this mod is very simple!
 
 Put the jar file in your mods folder and you are good to go!
 
-If you wish to be able to access the settings of the mod within the game; you will also need to put [ModMenu] and [Cloth Config API] in your mods folder.
+For [Fabric] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [ModMenu] and [Cloth Config API] in your mods folder.
+
+For [Forge] and [NeoForge] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [Cloth Config API] in your mods folder.
+
 You can also edit the configuration file found in config folder manually if you wish to do so.
 
 ## 📖 Compatibility
 
 This mod should be compatible with every mod.
 
-[fabric]: https://fabricmc.net
+[Fabric]: https://fabricmc.net
+[Forge]: https://minecraftforge.net
+[NeoForge]: https://neoforged.net
 [ModMenu]: https://modrinth.com/mod/modmenu "ModMenu Modrinth page"
 [Cloth Config API]: https://modrinth.com/mod/cloth-config "Cloth Config API Modrinth page"
