@@ -6,6 +6,8 @@
 [![Mod loader: Fabric](https://img.shields.io/badge/modloader-Fabric-blue)][fabric]
 ![Version](https://img.shields.io/badge/version-1.0.1%2B1.16.2--1.16.5-blue)
 
+[![Buy Me a Coffee](https://img.shields.io/static/v1?label=&message=Buy%20Me%20a%20Coffee&color=5b9c51&labelColor=5b9c51&logoColor=ffffff&style=for-the-badge&logo=ko-fi)](https://ko-fi.com/plaguetr)
+
 A Fabric mod that adds customizable timestamps to chat!
 
 ## 📖 What is this mod?
