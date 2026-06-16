@@ -15,7 +15,7 @@ import space.plague.chattimestamps.config.ModConfig;
 @Mixin(ChatHud.class)
 public abstract class MixinChatHud {
 
-    @ModifyVariable(method = "addMessage(Lnet/minecraft/text/Text;IIZ)V", at = @At(value = "HEAD"), argsOnly = true, ordinal = 0)
+    @ModifyVariable(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V", at = @At(value = "HEAD"), argsOnly = true, ordinal = 0)
     private Text modifyMessage(Text message) {
 
         ModConfig config = Main.getConfig();
