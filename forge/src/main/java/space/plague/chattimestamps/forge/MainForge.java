@@ -3,7 +3,7 @@ package space.plague.chattimestamps.forge;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmlclient.ConfigGuiHandler;
+import net.minecraftforge.client.ConfigGuiHandler;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
