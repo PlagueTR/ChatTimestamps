@@ -4,7 +4,7 @@
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
 ![Mod loader: Fabric/Forge/NeoForge](https://img.shields.io/badge/modloader-Fabric/Forge/NeoForge-blue)
-![Version](https://img.shields.io/badge/version-1.2.0%2B1.17.1-blue)
+![Version](https://img.shields.io/badge/version-1.2.1%2B1.17.1-blue)
 
 [![Buy Me a Coffee](https://img.shields.io/static/v1?label=&message=Buy%20Me%20a%20Coffee&color=5b9c51&labelColor=5b9c51&logoColor=ffffff&style=for-the-badge&logo=ko-fi)](https://ko-fi.com/plaguetr)
 
