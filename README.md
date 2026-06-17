@@ -61,7 +61,7 @@ Using this mod is very simple!
 
 Put the jar file in your mods folder and you are good to go!
 
-For [Fabric] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [ModMenu] and [Cloth Config API] in your mods folder.
+For [Fabric] and [Quilt] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [ModMenu] and [Cloth Config API] in your mods folder.
 
 For [Forge] and [NeoForge] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [Cloth Config API] in your mods folder.
 
@@ -72,6 +72,7 @@ You can also edit the configuration file found in config folder manually if you 
 This mod should be compatible with every mod.
 
 [Fabric]: https://fabricmc.net
+[Quilt]: https://quiltmc.org
 [Forge]: https://minecraftforge.net
 [NeoForge]: https://neoforged.net
 [ModMenu]: https://modrinth.com/mod/modmenu "ModMenu Modrinth page"
