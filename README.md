@@ -3,7 +3,7 @@
 ![Language: Java 16](https://img.shields.io/badge/Language-Java%2016-purple)
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
-![Mod loader: Fabric/Forge/NeoForge](https://img.shields.io/badge/modloader-Fabric/Forge/NeoForge-blue)
+![Mod loader: Fabric/Quilt/Forge/NeoForge](https://img.shields.io/badge/modloader-Fabric/Quilt/Forge/NeoForge-blue)
 ![Version](https://img.shields.io/badge/version-1.2.1%2B1.18.2-blue)
 
 [![Buy Me a Coffee](https://img.shields.io/static/v1?label=&message=Buy%20Me%20a%20Coffee&color=5b9c51&labelColor=5b9c51&logoColor=ffffff&style=for-the-badge&logo=ko-fi)](https://ko-fi.com/plaguetr)
@@ -61,7 +61,7 @@ Using this mod is very simple!
 
 Put the jar file in your mods folder and you are good to go!
 
-For [Fabric] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [ModMenu] and [Cloth Config API] in your mods folder.
+For [Fabric] and [Quilt] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [ModMenu] and [Cloth Config API] in your mods folder.
 
 For [Forge] and [NeoForge] version, if you wish to be able to access the settings of the mod within the game; you will also need to put [Cloth Config API] in your mods folder.
 
@@ -72,6 +72,7 @@ You can also edit the configuration file found in config folder manually if you 
 This mod should be compatible with every mod.
 
 [Fabric]: https://fabricmc.net
+[Quilt]: https://quiltmc.org
 [Forge]: https://minecraftforge.net
 [NeoForge]: https://neoforged.net
 [ModMenu]: https://modrinth.com/mod/modmenu "ModMenu Modrinth page"
