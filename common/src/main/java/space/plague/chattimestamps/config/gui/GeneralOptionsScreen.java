@@ -4,8 +4,8 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 
 import space.plague.chattimestamps.Main;
 import space.plague.chattimestamps.config.ModConfig;
@@ -17,30 +17,30 @@ public class GeneralOptionsScreen {
         ModConfig defaults = new ModConfig();
 
         ConfigBuilder builder = ConfigBuilder.create()
-                .setParentScreen(MinecraftClient.getInstance().currentScreen)
-                .setTitle(Text.literal(Main.MOD_NAME + " - General"));
+                .setParentScreen(Minecraft.getInstance().screen)
+                .setTitle(Component.literal(Main.MOD_NAME + " - General"));
 
         builder.setSavingRunnable(Main::saveConfig);
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-        ConfigCategory general = builder.getOrCreateCategory(Text.literal("General"));
+        ConfigCategory general = builder.getOrCreateCategory(Component.literal("General"));
 
-        general.addEntry(entryBuilder.startBooleanToggle(Text.literal("Enable Mod"), Main.getConfig().isEnableMod())
+        general.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Mod"), Main.getConfig().isEnableMod())
                 .setDefaultValue(defaults.isEnableMod())
-                .setTooltip(Text.literal("Enables the mod."))
+                .setTooltip(Component.literal("Enables the mod."))
                 .setSaveConsumer(newValue -> { Main.getConfig().setEnableMod(newValue); })
                 .build());
 
-        general.addEntry(entryBuilder.startStrField(Text.literal("Timestamp Format"), Main.getConfig().getTimestampFormat())
+        general.addEntry(entryBuilder.startStrField(Component.literal("Timestamp Format"), Main.getConfig().getTimestampFormat())
                 .setDefaultValue(defaults.getTimestampFormat())
-                .setTooltip(Text.literal("Set the formatting for the timestamp."))
+                .setTooltip(Component.literal("Set the formatting for the timestamp."))
                 .setSaveConsumer(newValue -> { Main.getConfig().setTimestampFormat(newValue); })
                 .build());
 
-        general.addEntry(entryBuilder.startBooleanToggle(Text.literal("Enable Hover"), Main.getConfig().isEnableHover())
+        general.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Hover"), Main.getConfig().isEnableHover())
                 .setDefaultValue(defaults.isEnableHover())
-                .setTooltip(Text.literal("Display time when hovered instead of prefixing the message."))
+                .setTooltip(Component.literal("Display time when hovered instead of prefixing the message."))
                 .setSaveConsumer(newValue -> { Main.getConfig().setEnableHover(newValue); })
                 .build());
 
@@ -66,7 +66,7 @@ public class GeneralOptionsScreen {
                 "zzzz §8Full name of the general time zone§7\n" +
                 "'text' §8Any text not part of the formatting§7";
 
-        general.addEntry(entryBuilder.startTextDescription(Text.literal("§7Timestamp Formatting Help\n\n" + mc_formatting_info + ts_formatting_info))
+        general.addEntry(entryBuilder.startTextDescription(Component.literal("§7Timestamp Formatting Help\n\n" + mc_formatting_info + ts_formatting_info))
                 .build());
 
         builder.transparentBackground();

@@ -28,25 +28,25 @@ subprojects {
 
 	dependencies{
 		minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-		mappings "net.fabricmc:yarn:$rootProject.yarn_mappings:v2"
+		mappings loom.officialMojangMappings()
 	}
 
 	java {
 		withSourcesJar()
 
-		sourceCompatibility = JavaVersion.VERSION_17
-		targetCompatibility = JavaVersion.VERSION_17
+		sourceCompatibility = JavaVersion.toVersion(rootProject.mod_java)
+		targetCompatibility = JavaVersion.toVersion(rootProject.mod_java)
 
-		toolchain.languageVersion=JavaLanguageVersion.of(17)
+		toolchain.languageVersion=JavaLanguageVersion.of(rootProject.mod_java as Integer)
 	}
 
 	tasks.withType(JavaCompile).configureEach {
-		it.options.release = 17
+		it.options.release = rootProject.mod_java as Integer
 	}
 
 	tasks.withType(JavaExec).configureEach {
 		def toolchainService = project.extensions.getByType(JavaToolchainService)
-		def launcher = toolchainService.launcherFor{languageVersion = JavaLanguageVersion.of(17)}.get()
+		def launcher = toolchainService.launcherFor{languageVersion = JavaLanguageVersion.of(rootProject.mod_java as Integer)}.get()
 
 		executable = launcher.executablePath.asFile.absolutePath
 	}
