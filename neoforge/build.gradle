@@ -1,0 +1,70 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    neoForge()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.neoforged.net/releases' }
+}
+
+dependencies {
+    neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
+
+    //modImplementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
+
+    modImplementation("me.shedaniel.cloth:cloth-config-neoforge:${rootProject.common_cloth_config_version}")
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+}
+
+processResources {
+    inputs.property 'neoforge_loader_version', rootProject.neoforge_loader_version
+    inputs.property 'mod_license', rootProject.mod_license
+    inputs.property 'mod_version', rootProject.mod_version
+    inputs.property 'mod_name', rootProject.mod_name
+    inputs.property 'mod_author', rootProject.mod_author
+    inputs.property 'mod_desc', rootProject.mod_description
+    inputs.property 'minecraft_version', rootProject.minecraft_version
+
+    filesMatching('META-INF/mods.toml') {
+        expand([
+                'neoforge_loader_version': inputs.properties.neoforge_loader_version,
+                'mod_license': inputs.properties.mod_license,
+                'mod_version': inputs.properties.mod_version,
+                'mod_name': inputs.properties.mod_name,
+                'mod_author': inputs.properties.mod_author,
+                'mod_desc': inputs.properties.mod_desc,
+                'minecraft_version': inputs.properties.minecraft_version,
+        ])
+    }
+}
+
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}
