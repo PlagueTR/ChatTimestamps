@@ -2,18 +2,18 @@ package space.plague.chattimestamps.forge;
 
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import space.plague.chattimestamps.Main;
 import space.plague.chattimestamps.config.gui.GeneralOptionsScreen;
 
 @Mod(Main.MOD_ID)
 public final class MainForge {
-    public MainForge(FMLJavaModLoadingContext context) {
+    public MainForge() {
 
         if (ModList.get().isLoaded("cloth_config")) {
-            context.registerExtensionPoint(
+            ModLoadingContext.get().registerExtensionPoint(
                     ConfigScreenHandler.ConfigScreenFactory.class,
                     () -> new ConfigScreenHandler.ConfigScreenFactory(
                             (mc, parentScreen) -> GeneralOptionsScreen.getConfigBuilder().build()
