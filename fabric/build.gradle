@@ -31,15 +31,19 @@ repositories {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
-    //modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
     //modImplementation "me.shedaniel:architectury-fabric:$rootProject.architectury_api_version"
 
     modImplementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.common_cloth_config_version}") {
         exclude module: "fabric-api"
+        transitive = false
     }
 
-    modImplementation("com.terraformersmc:modmenu:${rootProject.fabric_mod_menu_version}")
+    modImplementation("com.terraformersmc:modmenu:${rootProject.fabric_mod_menu_version}") {
+        exclude module: "fabric-api"
+        transitive = false
+    }
     //modImplementation("maven.modrinth:modmenu:${rootProject.fabric_mod_menu_version}")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
