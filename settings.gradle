@@ -12,5 +12,5 @@ rootProject.name = 'plagues-chat-timestamps'
 
 include 'common'
 include 'fabric'
-//include 'forge'
+include 'forge'
 include 'neoforge'
