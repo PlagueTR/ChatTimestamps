@@ -23,8 +23,8 @@ configurations {
 }
 
 repositories {
-    //maven { url = "https://maven.terraformersmc.com" }
-    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.terraformersmc.com" }
+    //maven { url = "https://api.modrinth.com/maven" }
     //maven { url = "https://maven.nucleoid.xyz/" }
 }
 
@@ -39,8 +39,8 @@ dependencies {
         exclude module: "fabric-api"
     }
 
-    //modImplementation("com.terraformersmc:modmenu:${rootProject.fabric_mod_menu_version}")
-    modImplementation("maven.modrinth:modmenu:${rootProject.fabric_mod_menu_version}")
+    modImplementation("com.terraformersmc:modmenu:${rootProject.fabric_mod_menu_version}")
+    //modImplementation("maven.modrinth:modmenu:${rootProject.fabric_mod_menu_version}")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')

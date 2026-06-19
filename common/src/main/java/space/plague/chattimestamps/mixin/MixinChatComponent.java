@@ -31,15 +31,15 @@ public abstract class MixinChatComponent {
             Style original = message.content().getStyle();
             HoverEvent existing = original.getHoverEvent();
             HoverEvent newHover;
-            if (existing != null && existing.getAction() == HoverEvent.Action.SHOW_TEXT) {
-                Component combined = ts.append("§r\n").append(existing.getValue(HoverEvent.Action.SHOW_TEXT));
-                newHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, combined);
+            if (existing instanceof HoverEvent.ShowText(Component value)) {
+                Component combined = ts.append("§r\n").append(value);
+                newHover = new HoverEvent.ShowText(combined);
             }
             else if (existing != null) {
                 newHover = existing;
             }
             else {
-                newHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, ts);
+                newHover = new HoverEvent.ShowText(ts);
             }
             Style newStyle = original.withHoverEvent(newHover);
             message = new GuiMessage(
