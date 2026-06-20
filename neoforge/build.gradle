@@ -8,18 +8,12 @@ architectury {
 }
 
 configurations {
-    common {
-        canBeResolved = true
-        canBeConsumed = false
-    }
+    common
+    shadowCommon
+
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentNeoForge.extendsFrom common
-
-    shadowBundle {
-        canBeResolved = true
-        canBeConsumed = false
-    }
 }
 
 repositories {
@@ -29,12 +23,12 @@ repositories {
 dependencies {
     neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
 
-    //modImplementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
+    //implementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
 
-    modImplementation("me.shedaniel.cloth:cloth-config-neoforge:${rootProject.common_cloth_config_version}")
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:${rootProject.common_cloth_config_version}")
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+    common(project(path: ':common')) { transitive = false }
+    shadowCommon(project(path: ':common', configuration: "transformProductionNeoForge")) { transitive = false }
 }
 
 processResources {
@@ -59,12 +53,19 @@ processResources {
     }
 }
 
-
-shadowJar {
-    configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
+jar {
+    archiveClassifier = "raw"
 }
 
-remapJar {
-    inputFile.set shadowJar.archiveFile
+java {
+    withSourcesJar()
+}
+
+shadowJar {
+    dependsOn(jar)
+    mainSpec.sourcePaths.clear()
+    from(zipTree(jar.archiveFile))
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = null
 }

@@ -17,7 +17,7 @@ public class GeneralOptionsScreen {
         ModConfig defaults = new ModConfig();
 
         ConfigBuilder builder = ConfigBuilder.create()
-                .setParentScreen(Minecraft.getInstance().screen)
+                .setParentScreen(Minecraft.getInstance().gui.screen())
                 .setTitle(Component.literal(Main.MOD_NAME + " - General"));
 
         builder.setSavingRunnable(Main::saveConfig);
