@@ -1,7 +1,7 @@
 package space.plague.chattimestamps.mixin;
 
 import net.minecraft.client.gui.components.ChatComponent;
-import net.minecraft.client.GuiMessage;
+import net.minecraft.client.multiplayer.chat.GuiMessage;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Component;
@@ -17,7 +17,7 @@ import space.plague.chattimestamps.config.ModConfig;
 @Mixin(ChatComponent.class)
 public abstract class MixinChatComponent {
 
-    @ModifyVariable(method = "addMessageToDisplayQueue(Lnet/minecraft/client/GuiMessage;)V", at = @At(value = "HEAD"), argsOnly = true, ordinal = 0)
+    @ModifyVariable(method = "addMessageToDisplayQueue(Lnet/minecraft/client/multiplayer/chat/GuiMessage;)V", at = @At(value = "HEAD"), argsOnly = true, ordinal = 0)
     private GuiMessage modifyMessage(GuiMessage message) {
 
         ModConfig config = Main.getConfig();
@@ -46,6 +46,7 @@ public abstract class MixinChatComponent {
                     message.addedTime(),
                     message.content().copy().withStyle(newStyle),
                     message.signature(),
+                    message.source(),
                     message.tag()
             );
         }
@@ -54,6 +55,7 @@ public abstract class MixinChatComponent {
                     message.addedTime(),
                     Component.literal(Main.getFormattedTimestamp() + "§r").append(message.content()),
                     message.signature(),
+                    message.source(),
                     message.tag()
             );
         }

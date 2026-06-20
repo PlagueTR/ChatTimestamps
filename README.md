@@ -1,10 +1,10 @@
 # Plague's Chat Timestamps
 
-![Language: Java 21](https://img.shields.io/badge/Language-Java%2021-purple)
+![Language: Java 25](https://img.shields.io/badge/Language-Java%2025-purple)
 [![GitHub license: MIT](https://img.shields.io/badge/license-MIT%20License-green)](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-blue)
 ![Mod loader: Fabric/Quilt/Forge/NeoForge](https://img.shields.io/badge/modloader-Fabric/Quilt/Forge/NeoForge-blue)
-![Version](https://img.shields.io/badge/version-1.2.1%2B1.21.10-blue)
+![Version](https://img.shields.io/badge/version-1.2.1%2B26.1-blue)
 
 [![Buy Me a Coffee](https://img.shields.io/static/v1?label=&message=Buy%20Me%20a%20Coffee&color=5b9c51&labelColor=5b9c51&logoColor=ffffff&style=for-the-badge&logo=ko-fi)](https://ko-fi.com/plaguetr)
 
