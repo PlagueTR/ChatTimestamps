@@ -10,13 +10,13 @@ A Minecraft mod that adds customizable timestamps to chat!
 
 This is a client-side mod that allows users to add a customizable timestamp to their chat messages.
 
-Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?
-With this mod, you'll never have to guess again!
+Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?  
+With this mod, you'll never have to guess again!  
 The Timestamp mod adds timestamps to all chat messages, so you can easily see exactly when each message was sent.
 
 The formatting along with the style of the timestamp can be customized.
 
-Here are some screenshots!
+Here are some screenshots!  
 \(Please note that I just joined a random server & asked for permission to take the screenshots.\)
 
 ![default settings](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/showcase/settings-default.png)
@@ -35,17 +35,17 @@ Here are some screenshots!
 
 - Automatic detection of timezone
 - Format customization
- - Time formatting
-   - 12-hour format / 24-hour format
-   - Second
-   - Millisecond
- - Date formatting
-   - Year
-   - Numerical month
-   - Short and long name of month \(ex: "Feb", "February"\)
-   - Numerical day of the month
-   - Short and long name of the day of the week \(ex: "Sat", "Saturday"\)
-   - Short and long name of time zone \(ex: "PST", "Pacific Standard Time"\)
+  - Time formatting
+    - 12-hour format / 24-hour format
+    - Second
+    - Millisecond
+  - Date formatting
+    - Year
+    - Numerical month
+    - Short and long name of month \(ex: "Feb", "February"\)
+    - Numerical day of the month
+    - Short and long name of the day of the week \(ex: "Sat", "Saturday"\)
+    - Short and long name of time zone \(ex: "PST", "Pacific Standard Time"\)
 - Style customization
   - Color customization
   - Bold, italic and underlined text
@@ -97,12 +97,12 @@ This mod should be compatible with every mod.
 
 ✅ - Supported ⏳ - Planned ❌ - Not supported
 
-Notes:
-Latest mod version is written in parentheses
-¹: **1.21.4 [Forge]** users can use cloth config for 1.21.3 since there is no build of cloth config for 1.21.4 Forge
-²: **1.21.9 [NeoForge]** users should use NeoForge 21.9.15-beta or below since cloth config causes a crash on NeoForge 21.9.16-beta upon opening the mods list
-³: **1.21.11 [Quilt]** users should use Quilt 0.29.3-beta.1 or above since mod menu now requires Fabric 0.17.3
-⁴: **From 26.1 to 26.1.2 [Quilt]** users should use Quilt 0.30.0-beta.4 or above since mod menu now requires Fabric 0.18.4
+Notes:  
+Latest mod version is written in parentheses  
+¹: **1.21.4 [Forge]** users can use cloth config for 1.21.3 since there is no build of cloth config for 1.21.4 Forge  
+²: **1.21.9 [NeoForge]** users should use NeoForge 21.9.15-beta or below since cloth config causes a crash on NeoForge 21.9.16-beta upon opening the mods list  
+³: **1.21.11 [Quilt]** users should use Quilt 0.29.3-beta.1 or above since mod menu now requires Fabric 0.17.3  
+⁴: **From 26.1 to 26.1.2 [Quilt]** users should use Quilt 0.30.0-beta.4 or above since mod menu now requires Fabric 0.18.4  
 ⁵: **From 26.2 [Quilt]** users should use Quilt 0.30.0-beta.8 or above for mod menu to work
 
 [Fabric]: https://fabricmc.net
