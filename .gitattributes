@@ -1,0 +1,13 @@
+* text=auto
+
+*.md text
+
+*.yml text
+*.yaml text
+*.json text
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

@@ -1,52 +1,187 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url = 'https://maven.architectury.dev/' }
+    }
+    dependencies {
+        classpath 'org.commonmark:commonmark:0.29.0'
+        classpath 'org.commonmark:commonmark-ext-gfm-tables:0.29.0'
+        classpath 'org.commonmark:commonmark-ext-gfm-strikethrough:0.29.0'
+        classpath 'org.commonmark:commonmark-ext-gfm-alerts:0.29.0'
+
+        classpath "${gradle.ext['architectury_loom_path']}:${gradle.ext['architectury_loom_version']}"
+        classpath "architectury-plugin:architectury-plugin.gradle.plugin:${gradle.ext['architectury_plugin_version']}"
+    }
+}
+
 plugins {
-	id 'dev.architectury.loom-no-remap' version "${architectury_loom_version}" apply false
-	id 'architectury-plugin' version "${architectury_plugin_version}"
-	id 'com.gradleup.shadow' version "${shadow_version}" apply false
+    id 'com.gradleup.shadow' version "${shadow_version}" apply false
+    id 'com.github.breadmoirai.github-release' version "${github_release_version}"
+    id 'net.darkhax.curseforgegradle' version "${curseforge_gradle_version}" apply false
+}
+
+apply plugin: 'architectury-plugin'
+
+gradle.ext.properties.each { key, value ->
+    if (key != "properties" && key != "class") {
+        project.ext[key] = value
+    }
 }
 
 architectury {
-	minecraft = project.minecraft_version
+    minecraft = gradle.ext['minecraft_version']
 }
 
 allprojects {
-	group = rootProject.maven_group
-	version = rootProject.mod_version
+    group = rootProject.maven_group
+    version = rootProject.mod_version
 }
 
 subprojects {
-	apply plugin: 'dev.architectury.loom-no-remap'
-	apply plugin: 'architectury-plugin'
-	apply plugin: 'java'
+    apply plugin: rootProject.architectury_loom_id
+    if (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') {
+        apply plugin: 'com.gradleup.shadow'
+    }
+    apply plugin: 'architectury-plugin'
+    apply plugin: 'java'
 
-	base {
-		archivesName = "$rootProject.archives_name-$rootProject.minecraft_version-$project.name"
-	}
+    base {
+        archivesName = "$rootProject.archives_name-$rootProject.minecraft_version-$project.name"
+    }
 
-	repositories{
+    repositories{
 
-	}
+    }
 
-	dependencies{
-		minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-	}
+    dependencies{
+        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+        if (rootProject.architectury_loom_id != 'dev.architectury.loom-no-remap') {
+            mappings loom.officialMojangMappings()
+        }
+    }
 
-	java {
-		withSourcesJar()
+    java {
+        withSourcesJar()
 
-		sourceCompatibility = JavaVersion.toVersion(rootProject.mod_java)
-		targetCompatibility = JavaVersion.toVersion(rootProject.mod_java)
+        sourceCompatibility = JavaVersion.toVersion(rootProject.minecraft_java_version)
+        targetCompatibility = JavaVersion.toVersion(rootProject.minecraft_java_version)
+        toolchain.languageVersion=JavaLanguageVersion.of(rootProject.minecraft_java_version as Integer)
+    }
 
-		toolchain.languageVersion=JavaLanguageVersion.of(rootProject.mod_java as Integer)
-	}
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release = rootProject.minecraft_java_version as Integer
 
-	tasks.withType(JavaCompile).configureEach {
-		it.options.release = rootProject.mod_java as Integer
-	}
+        if (rootProject.minecraft_java_version as Integer == 8) {
+            options.compilerArgs.removeIf { it == "--release" }
+            if (options.hasProperty("release")) {
+                options.release.set(null)
+            }
+        }
+    }
 
-	tasks.withType(JavaExec).configureEach {
-		def toolchainService = project.extensions.getByType(JavaToolchainService)
-		def launcher = toolchainService.launcherFor{languageVersion = JavaLanguageVersion.of(rootProject.mod_java as Integer)}.get()
+    tasks.withType(JavaExec).configureEach {
+        def toolchainService = project.extensions.getByType(JavaToolchainService)
+        def launcher = toolchainService.launcherFor{languageVersion = JavaLanguageVersion.of(rootProject.minecraft_java_version as Integer)}.get()
 
-		executable = launcher.executablePath.asFile.absolutePath
-	}
+        executable = launcher.executablePath.asFile.absolutePath
+    }
+}
+
+githubRelease {
+    if (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') {
+        evaluationDependsOnChildren()
+    }
+
+    token = System.getenv("GITHUB_TOKEN")
+    owner = "${rootProject.repo_owner}"
+    repo = "${rootProject.repo_repo}"
+    tagName = "${rootProject.mod_version}+${rootProject.minecraft_version}"
+    targetCommitish = "${rootProject.repo_branch}"
+    releaseName = "PlaguesChatTimestamps v${rootProject.mod_version}+${rootProject.minecraft_version}"
+    body = rootProject.file("CHANGELOG.md").text
+
+    def activePlatformsList = gradle.ext['active_platforms']
+
+    def targetTaskName = (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') ? 'shadowJar' : 'remapJar'
+
+    def assetsToInclude = []
+    activePlatformsList.each { platform ->
+        def targetJarTask = project(":${platform}").tasks.named(targetTaskName)
+        assetsToInclude << targetJarTask
+
+        tasks.named("githubRelease").configure {
+            dependsOn(targetJarTask)
+        }
+    }
+
+    releaseAssets = files(assetsToInclude)
+}
+
+tasks.register('syncReadme') {
+    group "publishing"
+
+    doLast {
+        def readmeText = rootProject.file("README.md").text
+
+        def modrinthToken = System.getenv("MODRINTH_TOKEN")
+        def modrinthId = "${rootProject.modrinth_id}"
+
+        def curseForgeSession = System.getenv("CURSEFORGE_SESSION_COOKIE")
+        def curseForgeAuthors = System.getenv("CURSEFORGE_AUTHORS_USER")
+        def curseForgeId = "${rootProject.curseforge_id}"
+
+        def client = java.net.http.HttpClient.newHttpClient()
+
+        def modrinthPayload = [ body: readmeText.replaceAll("\r\n", "\n") ]
+        def modrinthPayloadJson = groovy.json.JsonOutput.toJson(modrinthPayload)
+
+        def modrinthURL = URI.create("https://api.modrinth.com/v2/project/${modrinthId}")
+
+        def modrinthRequest = java.net.http.HttpRequest.newBuilder()
+            .uri(modrinthURL)
+            .header("Authorization", modrinthToken)
+            .header("Content-Type", "application/json")
+            .header("User-Agent", "Gradle")
+            .method("PATCH", java.net.http.HttpRequest.BodyPublishers.ofString(modrinthPayloadJson))
+            .build()
+
+        def modrinthResponse = client.send(modrinthRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
+
+        if (modrinthResponse.statusCode() != 204) {
+            throw new GradleException("Sync Readme failed for Modrinth with code ${modrinthResponse.statusCode()}: ${modrinthResponse.body()}")
+        }
+
+        def extensions = [
+            org.commonmark.ext.gfm.tables.TablesExtension.create(),
+            org.commonmark.ext.gfm.strikethrough.StrikethroughExtension.create(),
+            org.commonmark.ext.gfm.alerts.AlertsExtension.create()
+        ]
+
+        def parser = org.commonmark.parser.Parser.builder().extensions(extensions).build()
+        def renderer = org.commonmark.renderer.html.HtmlRenderer.builder().extensions(extensions).build()
+        def document = parser.parse(readmeText)
+        def htmlDescription = renderer.render(document)
+
+        def curseForgePayload = [
+            description: htmlDescription,
+            descriptionType: 1
+        ]
+        def curseForgePayloadJson = groovy.json.JsonOutput.toJson(curseForgePayload)
+
+        def curseForgeURL = URI.create("https://authors.curseforge.com/_api/projects/description/${curseForgeId}")
+
+        def curseForgeRequest = java.net.http.HttpRequest.newBuilder()
+            .uri(curseForgeURL)
+            .header("cookie", "CobaltSession=${curseForgeSession}; AuthorsUser=${curseForgeAuthors}")
+            .header("Content-Type", "application/json")
+            .PUT(java.net.http.HttpRequest.BodyPublishers.ofString(curseForgePayloadJson))
+            .build()
+
+        def curseForgeResponse = client.send(curseForgeRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
+
+        if (curseForgeResponse.statusCode() != 200) {
+            throw new GradleException("Sync Readme failed for CurseForge with code ${curseForgeResponse.statusCode()}: ${curseForgeResponse.body()}")
+        }
+
+    }
 }

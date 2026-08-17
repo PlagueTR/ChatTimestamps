@@ -4,10 +4,12 @@
 build/
 out/
 classes/
+gradle/wrapper/gradle-wrapper.jar
 
-# eclipse
+# fabric & architectury
 
-*.launch
+run/
+.architectury-transformer/debug.log
 
 # idea
 
@@ -16,25 +18,25 @@ classes/
 *.ipr
 *.iws
 
-# vscode
+# eclipse
 
-.settings/
-.vscode/
-bin/
 .classpath
 .project
+.settings/
+*.launch
+
+# vscode
+
+.vscode/
+
+# java
+
+bin/
+*.hprof
+*.jfr
+hs_err_*.log
+replay_*.log
 
 # macos
 
 *.DS_Store
-
-# fabric
-
-run/
-
-# java
-
-hs_err_*.log
-replay_*.log
-*.hprof
-*.jfr

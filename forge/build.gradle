@@ -1,36 +1,77 @@
-plugins {
-    id 'com.gradleup.shadow'
-}
-
-loom {
-    forge {
-        mixinConfig "plagueschattimestamps.mixins.json"
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.commonmark:commonmark:0.29.0'
+        classpath 'org.commonmark:commonmark-ext-gfm-tables:0.29.0'
+        classpath 'org.commonmark:commonmark-ext-gfm-strikethrough:0.29.0'
+        classpath 'org.commonmark:commonmark-ext-gfm-alerts:0.29.0'
     }
 }
+
+if (rootProject.architectury_loom_id != 'dev.architectury.loom-no-remap') {
+    apply plugin: 'com.gradleup.shadow'
+}
+apply plugin: 'net.darkhax.curseforgegradle'
 
 architectury {
     platformSetupLoomIde()
     forge()
 }
 
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+    forge {
+        mixinConfig "plagueschattimestamps.mixins.json"
+    }
+}
+
 configurations {
-    common
-    shadowCommon
+    if (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') {
+        common
+        shadowCommon
+    }
+    else {
+        common {
+            canBeResolved = true
+            canBeConsumed = false
+        }
+    }
 
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
+
+    if (rootProject.architectury_loom_id != 'dev.architectury.loom-no-remap') {
+        shadowBundle {
+            canBeResolved = true
+            canBeConsumed = false
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://api.modrinth.com/maven"}
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:$rootProject.forge_version"
+    if (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') {
+        forge "net.minecraftforge:forge:$rootProject.forge_version"
 
-    //modImplementation "me.shedaniel:architectury-forge:$rootProject.architectury_api_version"
+        implementation("me.shedaniel.cloth:cloth-config-forge:${rootProject.common_cloth_config_version}")
 
-    implementation("me.shedaniel.cloth:cloth-config-forge:${rootProject.common_cloth_config_version}")
+        common(project(path: ':common')) { transitive = false }
+        shadowCommon(project(path: ':common', configuration: "transformProductionForge")) { transitive = false }
+    }
+    else {
+        forge "net.minecraftforge:forge:$rootProject.forge_version"
 
-    common(project(path: ':common')) { transitive = false }
-    shadowCommon(project(path: ':common', configuration: "transformProductionForge")) { transitive = false }
+        modImplementation("me.shedaniel.cloth:cloth-config-forge:${rootProject.common_cloth_config_version}")
+
+        common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+        shadowBundle project(path: ':common', configuration: 'transformProductionForge')
+    }
 }
 
 processResources {
@@ -55,20 +96,153 @@ processResources {
     }
 }
 
-jar {
-    archiveClassifier = "raw"
+if (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') {
+    jar {
+        archiveClassifier = "raw"
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    shadowJar {
+        dependsOn(jar)
+        mainSpec.sourcePaths.clear()
+        from(zipTree(jar.archiveFile))
+
+        configurations = [project.configurations.shadowCommon]
+        archiveClassifier = null
+    }
+}
+else {
+    shadowJar {
+        configurations = [project.configurations.shadowBundle]
+        archiveClassifier = 'dev-shadow'
+    }
+
+    remapJar {
+        inputFile.set shadowJar.archiveFile
+    }
 }
 
-java {
-    withSourcesJar()
+tasks.register('modrinth') {
+    group "publishing"
+
+    def targetTaskName = (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') ? 'shadowJar' : 'remapJar'
+    def targetJarTask = project.tasks.named(targetTaskName)
+    dependsOn(targetJarTask)
+
+    doLast {
+        def token = System.getenv("MODRINTH_TOKEN")
+
+        def jarTask = targetJarTask.get()
+        def jarFile = jarTask.archiveFile.get().asFile
+
+        def metadataMap = [
+            "name": "${rootProject.mod_version}+${rootProject.minecraft_version}-Forge",
+            "version_number": "${rootProject.mod_version}+${rootProject.minecraft_version}-Forge",
+            "project_id": "${rootProject.modrinth_id}",
+            "game_versions": ["${rootProject.minecraft_version}"],
+            "loaders": ["forge"],
+            "featured": true,
+            "version_type": "release",
+            "status": "listed",
+            "changelog": rootProject.file("CHANGELOG.md").text,
+            "dependencies": [
+                [
+                    "project_id": "9s6osm5g",
+                    "dependency_type": "optional"
+                ]
+                //Add dependencies here
+            ],
+            "environment": "client_only",
+            "file_parts": ["mod_file"],
+            "primary_file": "mod_file",
+            "parts": ["mod_file"]
+        ]
+
+        def jsonMetadata = groovy.json.JsonOutput.toJson(metadataMap)
+
+        def client = java.net.http.HttpClient.newHttpClient()
+        def boundary = "Boundary-" + java.util.UUID.randomUUID().toString()
+        def lineBreak = "\r\n"
+        def byteArrays = []
+
+        def dataPartHeader = "--${boundary}${lineBreak}" +
+            "Content-Disposition: form-data; name=\"data\"${lineBreak}" +
+            "Content-Type: application/json${lineBreak}${lineBreak}" +
+            jsonMetadata + lineBreak
+        byteArrays.add(dataPartHeader.getBytes(java.nio.charset.StandardCharsets.UTF_8))
+
+        def filePartHeader = "--${boundary}${lineBreak}" +
+            "Content-Disposition: form-data; name=\"mod_file\"; filename=\"${jarFile.name}\"${lineBreak}" +
+            "Content-Type: application/java-archive${lineBreak}${lineBreak}"
+        byteArrays.add(filePartHeader.getBytes(java.nio.charset.StandardCharsets.UTF_8))
+        byteArrays.add(java.nio.file.Files.readAllBytes(jarFile.toPath()))
+        byteArrays.add(lineBreak.getBytes(java.nio.charset.StandardCharsets.UTF_8))
+
+        def closingBoundary = "--${boundary}--${lineBreak}"
+        byteArrays.add(closingBoundary.getBytes(java.nio.charset.StandardCharsets.UTF_8))
+
+        int totalLength = byteArrays.stream().mapToInt({ it.length }).sum()
+        byte[] resultBody = new byte[totalLength]
+        int currentIndex = 0
+        for (byte[] array : byteArrays) {
+            System.arraycopy(array, 0, resultBody, currentIndex, array.length)
+            currentIndex += array.length
+        }
+
+        def request = java.net.http.HttpRequest.newBuilder()
+            .uri(java.net.URI.create("https://api.modrinth.com/v2/version"))
+            .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+            .header("Authorization", token)
+            .header("User-Agent", "Gradle")
+            .POST(java.net.http.HttpRequest.BodyPublishers.ofByteArray(resultBody))
+            .build()
+
+        def response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString())
+
+        if (response.statusCode() == 200) {
+            println "Successfully published version to Modrinth!"
+        } else {
+            throw new GradleException("Failed to upload to Modrinth. Status: ${response.statusCode()}, Body: ${response.body()}")
+        }
+
+    }
 }
 
-shadowJar {
-    dependsOn(jar)
-    mainSpec.sourcePaths.clear()
-    from(zipTree(jar.archiveFile))
+tasks.register('curseForge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group "publishing"
 
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier = null
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+
+    def extensions = [
+        org.commonmark.ext.gfm.tables.TablesExtension.create(),
+        org.commonmark.ext.gfm.strikethrough.StrikethroughExtension.create(),
+        org.commonmark.ext.gfm.alerts.AlertsExtension.create()
+    ]
+
+    def parser = org.commonmark.parser.Parser.builder().extensions(extensions).build()
+    def renderer = org.commonmark.renderer.markdown.MarkdownRenderer.builder().extensions(extensions).build()
+    def document = parser.parse(rootProject.file("CHANGELOG.md").text)
+    def markdown = renderer.render(document)
+
+    def targetTaskName = (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') ? 'shadowJar' : 'remapJar'
+    def targetJarTask = project.tasks.named(targetTaskName)
+
+    def mainFile = upload("${rootProject.curseforge_id}" as Integer, targetJarTask)
+    dependsOn(targetJarTask)
+
+    mainFile.displayName = "${rootProject.mod_version}+${rootProject.minecraft_version}-Forge"
+    mainFile.changelog = markdown
+    mainFile.changelogType = "markdown"
+    mainFile.releaseType = net.darkhax.curseforgegradle.Constants.RELEASE_TYPE_RELEASE
+    mainFile.addGameVersion("${rootProject.minecraft_version}")
+    mainFile.addModLoader("Forge")
+
+    // environment
+    mainFile.addEnvironment("Client")
+
+    mainFile.addOptional("cloth-config")
+    // add dependencies here
 }
-

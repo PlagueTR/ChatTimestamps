@@ -1,36 +1,42 @@
-plugins {
-    id 'com.gradleup.shadow'
-}
-
 architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+loom {
+    accessWidenerPath = project(":common").file("src/main/resources/${project.archives_name}.accesswidener")
+}
+
 dependencies {
-    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    if (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') {
+        implementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
-    //modImplementation "me.shedaniel:architectury:$rootProject.architectury_api_version"
+        implementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.common_cloth_config_version}")
+    }
+    else {
+        modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
-    implementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.common_cloth_config_version}")
+        modImplementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.common_cloth_config_version}")
+    }
 }
 
-configurations{
-    shadowCommon
+if (rootProject.architectury_loom_id == 'dev.architectury.loom-no-remap') {
+    configurations {
+        shadowCommon
+    }
+
+    jar {
+        archiveClassifier = "raw"
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    shadowJar {
+        dependsOn(jar)
+        from(zipTree(jar.archiveFile))
+
+        configurations = [project.configurations.shadowCommon]
+        archiveClassifier = null
+    }
 }
-
-jar {
-    archiveClassifier = "raw"
-}
-
-java {
-    withSourcesJar()
-}
-
-shadowJar {
-    dependsOn(jar)
-    from(zipTree(jar.archiveFile))
-
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier = null
-}
-

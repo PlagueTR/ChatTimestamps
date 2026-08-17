@@ -8,9 +8,39 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'plagues-chat-timestamps'
+rootProject.name = providers.gradleProperty('archives_name').get()
 
 include 'common'
-include 'fabric'
-//include 'forge'
-include 'neoforge'
+
+def targetMinecraftStr = providers.gradleProperty('target_minecraft_version').get()
+
+def versionFile = new File("versions/${targetMinecraftStr}.properties")
+if (!versionFile.exists()) {
+    throw new GradleException("Minecraft version profile configuration not found: ${versionFile.absolutePath}")
+}
+
+def versionProps = new Properties()
+versionFile.withInputStream { stream -> versionProps.load(stream) }
+
+versionProps.each { key, value ->
+    gradle.ext[key] = value
+}
+
+def platformsProp = providers.gradleProperty('enabled_platforms').get()
+def enabledPlatforms = platformsProp.split(',').collect { it.trim().toLowerCase() }
+
+def supportedPlatformsProp = gradle.ext['supported_loaders']
+def supportedPlatforms = supportedPlatformsProp.split(',').collect { it.trim().toLowerCase() }
+
+def activePlatforms = enabledPlatforms.intersect(supportedPlatforms)
+gradle.ext['active_platforms'] = activePlatforms
+
+if (activePlatforms.contains('fabric')) {
+    include 'fabric'
+}
+if (activePlatforms.contains('forge')) {
+    include 'forge'
+}
+if (activePlatforms.contains('neoforge')) {
+    include 'neoforge'
+}

@@ -15,10 +15,10 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "space.plague.chattimestamps.fabric.MainFabric"
+      "space.plague.plagueschattimestamps.fabric.MainFabric"
     ],
     "modmenu": [
-      "space.plague.chattimestamps.fabric.config.gui.ModMenuIntegration"
+      "space.plague.plagueschattimestamps.fabric.config.gui.ModMenuIntegration"
     ]
   },
   "mixins": [

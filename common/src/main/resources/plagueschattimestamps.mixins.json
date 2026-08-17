@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "space.plague.chattimestamps.mixin",
+  "package": "space.plague.plagueschattimestamps.mixin",
   "compatibilityLevel": "JAVA_25",
   "minVersion": "0.8",
   "client": [
