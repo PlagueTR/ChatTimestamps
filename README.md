@@ -10,13 +10,13 @@ A Minecraft mod that adds customizable timestamps to chat!
 
 This is a client-side mod that allows users to add a customizable timestamp to their chat messages.
 
-Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?  
-With this mod, you'll never have to guess again!  
+Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?
+With this mod, you'll never have to guess again!
 The Timestamp mod adds timestamps to all chat messages, so you can easily see exactly when each message was sent.
 
 The formatting along with the style of the timestamp can be customized.
 
-Here are some screenshots!  
+Here are some screenshots!
 \(Please note that I just joined a random server & asked for permission to take the screenshots.\)
 
 ![default settings](https://raw.githubusercontent.com/PlagueTR/ChatTimestamps/main/showcase/settings-default.png)
@@ -69,41 +69,58 @@ This mod should be compatible with every mod.
 
 ## 🚀 Supported Versions
 
-| Minecraft |  Fabric   |   Quilt    |   Forge    |  NeoForge  |
-|:---------:|:---------:|:----------:|:----------:|:----------:|
-| **26.2**  | ✅(1.2.1) | ✅(1.2.1)⁵ |     ❌     | ✅(1.2.1)  |
-|  26.1.2   | ✅(1.2.1) | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
-|  26.1.1   | ✅(1.2.1) | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
-| **26.1**  | ✅(1.2.1) | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
-|  1.21.11  | ✅(1.2.1) | ✅(1.2.1)³ |     ❌     | ✅(1.2.1)  |
-|  1.21.10  | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
-|  1.21.9   | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)² |
-|  1.21.8   | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
-|  1.21.7   | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
-|  1.21.6   | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
-|  1.21.5   | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
-|  1.21.4   | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)¹ | ✅(1.2.1)  |
-|  1.21.3   | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
-|  1.21.2   | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
-|  1.21.1   | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
-| **1.21**  | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
-|  1.20.6   | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
-|  1.20.5   | ✅(1.2.1) | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
-|  1.20.4   | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
-|  1.20.3   |    ❌     |     ❌     |     ❌     |     ❌     |
-|  1.20.2   | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
-|  1.20.1   | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
-| **1.20**  | ✅(1.2.1) | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+| Minecraft |   Fabric   |   Quilt    |   Forge    |  NeoForge  |
+|:---------:|:----------:|:----------:|:----------:|:----------:|
+| **26.2**  | ✅(1.2.1)  | ✅(1.2.1)⁵ |     ❌     | ✅(1.2.1)  |
+|  26.1.2   | ✅(1.2.1)  | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
+|  26.1.1   | ✅(1.2.1)  | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
+| **26.1**  | ✅(1.2.1)  | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
+|  1.21.11  | ✅(1.2.1)  | ✅(1.2.1)³ |     ❌     | ✅(1.2.1)  |
+|  1.21.10  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
+|  1.21.9   | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)² |
+|  1.21.8   | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
+|  1.21.7   | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
+|  1.21.6   | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
+|  1.21.5   | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
+|  1.21.4   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)¹ | ✅(1.2.1)  |
+|  1.21.3   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
+|  1.21.2   | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
+|  1.21.1   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
+| **1.21**  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
+|  1.20.6   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
+|  1.20.5   | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     | ✅(1.2.1)  |
+|  1.20.4   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
+|  1.20.3   | ✅(1.0.2)  | ✅(1.0.2)  |     ❌     |     ❌     |
+|  1.20.2   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |
+|  1.20.1   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+| **1.20**  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+|  1.19.4   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+|  1.19.3   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+|  1.19.2   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+|  1.19.1   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+| **1.19**  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+|  1.18.2   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+|  1.18.1   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+| **1.18**  | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.1)  |     ❌     |
+|  1.17.1   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.0)  |     ❌     |
+| **1.17**  | ✅(1.0.1)⁶ | ✅(1.0.1)⁶ |     ❌     |     ❌     |
+|  1.16.5   | ✅(1.2.1)  | ✅(1.2.1)  | ✅(1.2.0)  |     ❌     |
+|  1.16.4   | ✅(1.0.1)⁶ | ✅(1.0.1)⁶ |     ❌     |     ❌     |
+|  1.16.3   | ✅(1.0.1)⁶ | ✅(1.0.1)⁶ |     ❌     |     ❌     |
+|  1.16.2   | ✅(1.0.1)⁶ | ✅(1.0.1)⁶ |     ❌     |     ❌     |
+|  1.16.1   | ✅(1.0.1)⁶ | ✅(1.0.1)⁶ |     ❌     |     ❌     |
+| **1.16**  | ✅(1.0.1)⁶ | ✅(1.0.1)⁶ |     ❌     |     ❌     |
 
 ✅ - Supported ⏳ - Planned ❌ - Not supported
 
-Notes:  
-Latest mod version is written in parentheses  
-¹: **1.21.4 [Forge]** users can use cloth config for 1.21.3 since there is no build of cloth config for 1.21.4 Forge  
-²: **1.21.9 [NeoForge]** users should use NeoForge 21.9.15-beta or below since cloth config causes a crash on NeoForge 21.9.16-beta upon opening the mods list  
-³: **1.21.11 [Quilt]** users should use Quilt 0.29.3-beta.1 or above since mod menu now requires Fabric 0.17.3  
-⁴: **From 26.1 to 26.1.2 [Quilt]** users should use Quilt 0.30.0-beta.4 or above since mod menu now requires Fabric 0.18.4  
+Notes:
+Latest mod version is written in parentheses
+¹: **1.21.4 [Forge]** users can use cloth config for 1.21.3 since there is no build of cloth config for 1.21.4 Forge
+²: **1.21.9 [NeoForge]** users should use NeoForge 21.9.15-beta or below since cloth config causes a crash on NeoForge 21.9.16-beta upon opening the mods list
+³: **1.21.11 [Quilt]** users should use Quilt 0.29.3-beta.1 or above since mod menu now requires Fabric 0.17.3
+⁴: **From 26.1 to 26.1.2 [Quilt]** users should use Quilt 0.30.0-beta.4 or above since mod menu now requires Fabric 0.18.4
 ⁵: **From 26.2 [Quilt]** users should use Quilt 0.30.0-beta.8 or above for mod menu to work
+⁶: **Version 1.0.1** of the mod was compiled for Java 17, launch the game with Java 17 or newer even though older versions of the game could run on Java 16 or 1.8
 
 [Fabric]: https://fabricmc.net
 [Quilt]: https://quiltmc.org
