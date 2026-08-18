@@ -10,8 +10,8 @@ A Minecraft mod that adds customizable timestamps to chat!
 
 This is a client-side mod that allows users to add a customizable timestamp to their chat messages.
 
-Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?
-With this mod, you'll never have to guess again!
+Have you ever returned to Minecraft after being AFK only to find that your friends have been messaging you and wondered when those messages were left?<br>
+With this mod, you'll never have to guess again!<br>
 The Timestamp mod adds timestamps to all chat messages, so you can easily see exactly when each message was sent.
 
 The formatting along with the style of the timestamp can be customized.
@@ -113,13 +113,13 @@ This mod should be compatible with every mod.
 
 ✅ - Supported ⏳ - Planned ❌ - Not supported
 
-Notes:
-Latest mod version is written in parentheses
-¹: **1.21.4 [Forge]** users can use cloth config for 1.21.3 since there is no build of cloth config for 1.21.4 Forge
-²: **1.21.9 [NeoForge]** users should use NeoForge 21.9.15-beta or below since cloth config causes a crash on NeoForge 21.9.16-beta upon opening the mods list
-³: **1.21.11 [Quilt]** users should use Quilt 0.29.3-beta.1 or above since mod menu now requires Fabric 0.17.3
-⁴: **From 26.1 to 26.1.2 [Quilt]** users should use Quilt 0.30.0-beta.4 or above since mod menu now requires Fabric 0.18.4
-⁵: **From 26.2 [Quilt]** users should use Quilt 0.30.0-beta.8 or above for mod menu to work
+Notes:<br>
+Latest mod version is written in parentheses<br>
+¹: **1.21.4 [Forge]** users can use cloth config for 1.21.3 since there is no build of cloth config for 1.21.4 Forge<br>
+²: **1.21.9 [NeoForge]** users should use NeoForge 21.9.15-beta or below since cloth config causes a crash on NeoForge 21.9.16-beta upon opening the mods list<br>
+³: **1.21.11 [Quilt]** users should use Quilt 0.29.3-beta.1 or above since mod menu now requires Fabric 0.17.3<br>
+⁴: **From 26.1 to 26.1.2 [Quilt]** users should use Quilt 0.30.0-beta.4 or above since mod menu now requires Fabric 0.18.4<br>
+⁵: **From 26.2 [Quilt]** users should use Quilt 0.30.0-beta.8 or above for mod menu to work<br>
 ⁶: **Version 1.0.1** of the mod was compiled for Java 17, launch the game with Java 17 or newer even though older versions of the game could run on Java 16 or 1.8
 
 [Fabric]: https://fabricmc.net
