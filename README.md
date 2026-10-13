@@ -71,7 +71,7 @@ This mod should be compatible with every mod.
 
 | Minecraft |   Fabric   |   Quilt    |   Forge    |  NeoForge  |
 |:---------:|:----------:|:----------:|:----------:|:----------:|
-| **26.3**  | ✅(1.2.1)  | ✅(1.2.1)⁵ |     ❌     | ✅(1.2.1)  |
+| **26.3**  | ✅(1.2.1)  | ✅(1.2.1)⁷ |     ❌     | ✅(1.2.1)  |
 | **26.2**  | ✅(1.2.1)  | ✅(1.2.1)⁵ |     ❌     | ✅(1.2.1)  |
 |  26.1.2   | ✅(1.2.1)  | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
 |  26.1.1   | ✅(1.2.1)  | ✅(1.2.1)⁴ |     ❌     | ✅(1.2.1)  |
@@ -122,6 +122,7 @@ Notes:
 - ⁴: **From 26.1 to 26.1.2 [Quilt]** users should use Quilt 0.30.0-beta.4 or above since mod menu now requires Fabric 0.18.4
 - ⁵: **From 26.2 [Quilt]** users should use Quilt 0.30.0-beta.8 or above for mod menu to work
 - ⁶: **Version 1.0.1** of the mod was compiled for Java 17, launch the game with Java 17 or newer even though older versions of the game could run on Java 16 or 1.8
+- ⁷: **From 26.3 [Quilt]** users should use Quilt 0.30.2-beta.1 or above for the mod to work
 
 [Fabric]: https://fabricmc.net
 [Quilt]: https://quiltmc.org
