@@ -10,7 +10,7 @@ authors = "${mod_author}"
 description = '''
 ${mod_desc}
 '''
-logoFile = "icon.png"
+iconFile = "icon.png"
 
 [[dependencies.plagueschattimestamps]]
 modId = "neoforge"
